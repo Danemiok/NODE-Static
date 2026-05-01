@@ -1,20 +1,22 @@
-import express from "express";
-// Import/Export module - Controller methods
-import { 
-    createUser, 
-    getUsers, 
-    getUserById, 
-    updateUser, 
-    deleteUser 
-} from "../controllers/UserController.js";
+import express from 'express';
+import UserController from '../controllers/UserController.js';
 
 const router = express.Router();
+const userController = new UserController();
 
-// MVC Routes
-router.post("/users", createUser);      // Create
-router.get("/users", getUsers);          // Read all
-router.get("/users/:id", getUserById);   // Read one
-router.put("/users/:id", updateUser);    // Update
-router.delete("/users/:id", deleteUser);// Delete
+// Get all users
+router.get('/users', (req, res) => userController.getUsers(req, res));
+
+// Get user by ID
+router.get('/users/:id', (req, res) => userController.getUserById(req, res));
+
+// Create new user
+router.post('/users', (req, res) => userController.createUser(req, res));
+
+// Update user
+router.put('/users/:id', (req, res) => userController.updateUser(req, res));
+
+// Delete user
+router.delete('/users/:id', (req, res) => userController.deleteUser(req, res));
 
 export default router;
